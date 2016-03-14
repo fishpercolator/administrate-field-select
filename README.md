@@ -2,6 +2,9 @@
 
 Adds basic select/dropdown fields to ThoughtBot's [Administrate](https://github.com/thoughtbot/administrate)
 
+[![Gem Version](https://img.shields.io/gem/v/administrate-field-select.svg?style=flat)](https://rubygems.org/gems/administrate-field-select)
+[![Build Status](https://img.shields.io/travis/fishpercolator/administrate-field-select/master.svg?style=flat)](https://travis-ci.org/fishpercolator/administrate-field-select)
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -33,6 +36,13 @@ Additional options that are available:
 
 * `include_blank`: If true or a string, includes a blank option in the dropdown (with the string as its text).
 * `prettify`: If true, passes all choices through [`titleize`](http://api.rubyonrails.org/classes/String.html#method-i-titleize) before displaying them (in all views). If a lambda, that lambda is used instead of `titleize`.
+
+## Todo
+
+Some ideas for possible enhancements:
+
+1. Support i18n instead of prettify
+2. Be more magic with enum types and reflect the choices
 
 ## Contributing
 
