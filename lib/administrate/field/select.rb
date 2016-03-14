@@ -3,7 +3,10 @@ require 'rails'
 
 module Administrate
   module Field
-    class Select < Base    
+    class Select < Base
+      class Engine < ::Rails::Engine
+      end      
+      
       def choices
         options.fetch(:choices, []).
           map { |o| prettify? ? [prettify(o), o] : o }
