@@ -3,8 +3,8 @@ require 'administrate/field/base'
 module Administrate
   module Field
     class Select < Base    
-      def select_options
-        options.fetch(:select_options, []).
+      def choices
+        options.fetch(:choices, []).
           map { |o| prettify? ? [prettify(o), o] : o }
       end
   
