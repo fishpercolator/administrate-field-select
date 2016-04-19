@@ -5,14 +5,14 @@ Adds basic select/dropdown fields to ThoughtBot's [Administrate](https://github.
 [![Gem Version](https://img.shields.io/gem/v/administrate-field-select.svg?style=flat)](https://rubygems.org/gems/administrate-field-select)
 [![Build Status](https://img.shields.io/travis/fishpercolator/administrate-field-select/master.svg?style=flat)](https://travis-ci.org/fishpercolator/administrate-field-select)
 
-'''NOTE''': Since v0.1.15, Administrate now supports its own Field::Select with a slightly different mechanic. So this has been renamed to Field::SelectBasic. Please update your Gemfiles and rename your calls to this field.
+'''NOTE''': Since v0.1.15, Administrate now supports its own Field::Select with a slightly different mechanic. So this has been renamed to Field::SelectBasic. Please update your Gemfiles (as below) and rename your calls to this field.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'administrate-field-select'
+gem 'administrate-field-select', '~> 2.0', require: 'administrate/field/select_basic'
 ```
 
 And then execute:
