@@ -12,7 +12,7 @@ module Administrate
       end
   
       def to_s
-        prettify? ? prettify(data) : data
+        convert(data, raw: true)
       end
   
       def include_blank
@@ -21,8 +21,9 @@ module Administrate
     
       private
 
-      def convert item
-        return [prettify(item), item] if prettify?
+      def convert item, raw: false
+        return [prettify(item), item] if prettify? && !raw
+        return prettify(item) if prettify? && raw
         return internationalise(item) if i18n?
         return item
       end
