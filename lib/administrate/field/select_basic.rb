@@ -8,8 +8,7 @@ module Administrate
       end      
       
       def choices
-        options.fetch(:choices, []).
-          map { |o| prettify? ? [prettify(o), o] : o }
+        options.fetch(:choices, []).map { |o| convert(o) }
       end
   
       def to_s
@@ -21,9 +20,19 @@ module Administrate
       end
     
       private
+
+      def convert item
+        return [prettify(item), item] if prettify?
+        return [I18n.t(item), item] if i18n?
+        return item
+      end
   
       def prettify?
         !!options[:prettify]
+      end
+
+      def i18n?
+        !!options[:i18n]
       end
   
       def prettify(str)

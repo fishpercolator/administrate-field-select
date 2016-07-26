@@ -40,6 +40,16 @@ describe Administrate::Field::SelectBasic do
         expect(subject.choices).to eq([[3, 'foo'], [3, 'bar'], [4, 'bazz']])
       end
     end
+    context '1D :choices with i18n=true' do
+      let(:options) { { choices: %w{foo bar baz}, i18n: true } }
+      it 'returns 1d choices with translated 1st element' do
+        allow(I18n).to receive(:t).with('foo').and_return('FOO')
+        allow(I18n).to receive(:t).with('bar').and_return('BAR')
+        allow(I18n).to receive(:t).with('baz').and_return('BAZ')
+
+        expect(subject.choices).to eq([['FOO', 'foo'], ['BAR', 'bar'], ['BAZ', 'baz']])
+      end
+    end
   end
   
   describe '#to_s' do
