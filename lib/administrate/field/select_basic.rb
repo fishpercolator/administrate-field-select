@@ -23,7 +23,7 @@ module Administrate
 
       def convert item
         return [prettify(item), item] if prettify?
-        return [I18n.t(item), item] if i18n?
+        return internationalise(item) if i18n?
         return item
       end
   
@@ -41,6 +41,10 @@ module Administrate
         else
           str.titleize
         end
+      end
+
+      def internationalise item
+        item.respond_to?(:each) ? [I18n.t(item.first), item.last] : [I18n.t(item), item]
       end
     end
   end
