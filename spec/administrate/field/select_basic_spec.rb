@@ -79,6 +79,13 @@ describe Administrate::Field::SelectBasic do
         expect(subject.to_s).to eq(6)
       end
     end    
+    context 'i18n=true' do
+      let(:options) { { i18n: true } }
+      it "translates data" do 
+        allow(I18n).to receive(:t).with('wibble').and_return('Das Wieble')
+        expect(subject.to_s).to eq('Das Wieble')
+      end
+    end
   end
   
   describe '#include_blank' do

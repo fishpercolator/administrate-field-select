@@ -24,7 +24,7 @@ module Administrate
       def convert item, raw: false
         return [prettify(item), item] if prettify? && !raw
         return prettify(item) if prettify? && raw
-        return internationalise(item) if i18n?
+        return internationalise(item, raw: raw) if i18n?
         return item
       end
   
@@ -44,7 +44,8 @@ module Administrate
         end
       end
 
-      def internationalise item
+      def internationalise item, raw: false
+        return I18n.t(item) if raw
         item.respond_to?(:each) ? [I18n.t(item.first), item.last] : [I18n.t(item), item]
       end
     end
