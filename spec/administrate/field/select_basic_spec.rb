@@ -15,27 +15,27 @@ describe Administrate::Field::SelectBasic do
         expect(subject.choices).to eq([])
       end
     end
-    context '1D :choices without prettify' do
+    context '1D :choices with no modification options' do
       let(:options) { { choices: %w{foo bar baz} } }
       it 'returns the choices verbatim' do
         expect(subject.choices).to eq(%w{foo bar baz})
       end
     end
-    context '2D :choices' do
+    context '2D :choices with no modification options' do
       let(:choices) { [['foo', 'BAR'], ['baz', 'QUX']] }
       let(:options) { { choices: choices } }
       it 'returns the choices verbatim' do
         expect(subject.choices).to eq(choices)
       end
     end
-    context '1D :choices with prettify=true' do
-      let(:options) { { choices: %w{foo bar baz}, prettify: true } }
+    context '1D :choices with prettify=true (overriding i18n settings)' do
+      let(:options) { { choices: %w{foo bar baz}, prettify: true, i18n: true } }
       it 'returns 2d choices with titleized 1st element' do
         expect(subject.choices).to eq([['Foo', 'foo'], ['Bar', 'bar'], ['Baz', 'baz']])
       end
     end
-    context '1D :choices with prettify=lambda' do
-      let(:options) { { choices: %w{foo bar bazz}, prettify: ->(x) {x.length} } }
+    context '1D :choices with prettify=lambda (overriding i18n settings)' do
+      let(:options) { { choices: %w{foo bar bazz}, prettify: ->(x) {x.length}, i18n: true } }
       it 'returns 2d choices with lambda called on 1st element' do
         expect(subject.choices).to eq([[3, 'foo'], [3, 'bar'], [4, 'bazz']])
       end
