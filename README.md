@@ -38,13 +38,16 @@ Additional options that are available:
 
 * `include_blank`: If true or a string, includes a blank option in the dropdown (with the string as its text).
 * `prettify`: If true, passes all choices through [`titleize`](http://api.rubyonrails.org/classes/String.html#method-i-titleize) before displaying them (in all views). If a lambda, that lambda is used instead of `titleize`.
+* `i18n`: If true, passes all choices through [`i18n`](https://github.com/svenfuchs/i18n) before displaying them (in all views). 
+
+If both `prettify` and `i18n` are specified then `prettify` takes
+precedence.
 
 ## Todo
 
 Some ideas for possible enhancements:
 
-1. Support i18n instead of prettify
-2. Be more magic with enum types and reflect the choices
+1. Be more magic with enum types and reflect the choices
 
 ## Contributing
 

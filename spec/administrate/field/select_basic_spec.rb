@@ -15,29 +15,48 @@ describe Administrate::Field::SelectBasic do
         expect(subject.choices).to eq([])
       end
     end
-    context '1D :choices without prettify' do
+    context '1D :choices with no modification options' do
       let(:options) { { choices: %w{foo bar baz} } }
       it 'returns the choices verbatim' do
         expect(subject.choices).to eq(%w{foo bar baz})
       end
     end
-    context '2D :choices' do
+    context '2D :choices with no modification options' do
       let(:choices) { [['foo', 'BAR'], ['baz', 'QUX']] }
       let(:options) { { choices: choices } }
       it 'returns the choices verbatim' do
         expect(subject.choices).to eq(choices)
       end
     end
-    context '1D :choices with prettify=true' do
-      let(:options) { { choices: %w{foo bar baz}, prettify: true } }
+    context '1D :choices with prettify=true (overriding i18n settings)' do
+      let(:options) { { choices: %w{foo bar baz}, prettify: true, i18n: true } }
       it 'returns 2d choices with titleized 1st element' do
         expect(subject.choices).to eq([['Foo', 'foo'], ['Bar', 'bar'], ['Baz', 'baz']])
       end
     end
-    context '1D :choices with prettify=lambda' do
-      let(:options) { { choices: %w{foo bar bazz}, prettify: ->(x) {x.length} } }
+    context '1D :choices with prettify=lambda (overriding i18n settings)' do
+      let(:options) { { choices: %w{foo bar bazz}, prettify: ->(x) {x.length}, i18n: true } }
       it 'returns 2d choices with lambda called on 1st element' do
         expect(subject.choices).to eq([[3, 'foo'], [3, 'bar'], [4, 'bazz']])
+      end
+    end
+    context '1D :choices with i18n=true' do
+      let(:options) { { choices: %w{foo bar baz}, i18n: true } }
+      it 'returns 1d choices with translated 1st element' do
+        allow(I18n).to receive(:t).with('foo').and_return('FOO')
+        allow(I18n).to receive(:t).with('bar').and_return('BAR')
+        allow(I18n).to receive(:t).with('baz').and_return('BAZ')
+
+        expect(subject.choices).to eq([['FOO', 'foo'], ['BAR', 'bar'], ['BAZ', 'baz']])
+      end
+    end
+    context '2D :choices with i18n=true' do
+      let(:options) { { choices: [['foo', 0], ['bar', 1]], i18n: true } }
+      it 'returns 2d choices with translated 1st element and unadulterated 2nd element' do
+        allow(I18n).to receive(:t).with('foo').and_return('FOO')
+        allow(I18n).to receive(:t).with('bar').and_return('BAR')
+
+        expect(subject.choices).to eq([['FOO', 0], ['BAR', 1]])
       end
     end
   end
@@ -60,6 +79,13 @@ describe Administrate::Field::SelectBasic do
         expect(subject.to_s).to eq(6)
       end
     end    
+    context 'i18n=true' do
+      let(:options) { { i18n: true } }
+      it "translates data" do 
+        allow(I18n).to receive(:t).with('wibble').and_return('Das Wieble')
+        expect(subject.to_s).to eq('Das Wieble')
+      end
+    end
   end
   
   describe '#include_blank' do
